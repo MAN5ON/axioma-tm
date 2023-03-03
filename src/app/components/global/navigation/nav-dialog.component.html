@@ -1,0 +1,66 @@
+<h2 mat-dialog-title>Instruction</h2>
+<mat-dialog-content>
+  <h2>About</h2>
+  <p>
+    Web application using <a href="https://angular.io/docs">Angular</a> and
+    <a href="https://angular.io/guide/router-reference">router</a> . The
+    application has 2 pages:
+  </p>
+  <ul>
+    <li>showpage;</li>
+    <li>editor.</li>
+  </ul>
+  <p>(each page should be open in its own url).</p>
+  <h2>Task Manager Showpage</h2>
+  <ul>
+    <li>
+      A list of created elements with the date of their creation is displayed;
+    </li>
+    <li>
+      The list header has column names: name, date and time of creation, date
+      and time of execution;
+    </li>
+    <li>
+      Each item has a drop-down menu that allows you to move the item up or down
+      the list;
+    </li>
+    <li>
+      Clicking on an element opens a dialog with detailed field information.
+    </li>
+  </ul>
+  <h2>Editor Page</h2>
+  <p>On the editor page, you can:</p>
+  <ol>
+    <li>Add element:</li>
+    <ul>
+      <li>Adding is done using a popup consisting of fields:</li>
+      <ul>
+        <li>Name</li>
+        <li>Discription</li>
+        <li>Deadline</li>
+      </ul>
+      <li>
+        When creating an element, the Created date (Date + Time) field is
+        created automatically.
+      </li>
+    </ul>
+    <li>Copy element;</li>
+    <li>Remove element.</li>
+  </ol>
+  <h2>Additional Features</h2>
+  <ul>
+    <li>
+      The table can be sorted by clicking on the header field;
+    </li>
+    <li>
+      When the due date is reached, a toaster notification will appear with
+      information about the item;
+    </li>
+    <li>
+      Validation and display of errors in the fields of the creation form;
+    </li>
+  </ul>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>OK</button>
+</mat-dialog-actions>

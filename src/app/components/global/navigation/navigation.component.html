@@ -1,0 +1,37 @@
+<mat-toolbar color="primary" class="nav-bar">
+  <span
+    routerLink=""
+    routerLinkActive="active"
+    ariaCurrentWhenActive="page"
+    class="header"
+    >Task Manager
+    </span>
+  <div class="controls">
+    <button
+      class="showpage-btn"
+      mat-raised-button
+      routerLink=""
+      routerLinkActive="active"
+      ariaCurrentWhenActive="page"
+    >
+      Showpage
+    </button>
+    <button
+      class="editor-btn"
+      mat-raised-button
+      routerLink="editor"
+      routerLinkActive="active"
+      ariaCurrentWhenActive="page"
+    >
+      Editor
+    </button>
+    <button mat-icon-button
+    (click)="openDialog()">
+      <mat-icon
+        aria-hidden="false"
+        aria-label="Example home icon"
+        fontIcon="info"
+      ></mat-icon></button
+  >
+    </div>
+</mat-toolbar>

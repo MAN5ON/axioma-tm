@@ -1,0 +1,23 @@
+.editor {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.new-task-btn {
+  position: absolute;
+  align-self: flex-end;
+  margin: 5px 15px;
+}
+
+.table {
+  margin-top: 50px;
+}
+
+@media screen and (max-width: 1024px) {
+  .editor {
+    width: 100%;
+  }
+}
