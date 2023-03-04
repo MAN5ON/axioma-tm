@@ -1,7 +1,6 @@
 export interface ITask {
-  title: string,
-  text: string,
-  completed: boolean,
-  created: Date,
-  deadline: Date,
+  title: string;
+  text: string;
+  created: Date;
+  deadline: Date;
 }

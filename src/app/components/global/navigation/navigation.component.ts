@@ -16,6 +16,7 @@ export class NavigationComponent {
 
 @Component({
   selector: 'nav-dialog',
-  templateUrl: './nav-dialog.component.html',
+  templateUrl: './documentation/nav-dialog.component.html',
+  styleUrls: ['./documentation/nav-dialog.component.css']
 })
 export class NavDialog {}

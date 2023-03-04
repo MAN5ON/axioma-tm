@@ -1,42 +1,85 @@
-<h2 mat-dialog-title>Add new Task</h2>
-<mat-dialog-content>
-  <mat-form-field appearance="fill">
-    <mat-label>Title</mat-label>
-    <input matInput placeholder="Enter your title" required />
-    <mat-error *ngIf="title.invalid">{{ getErrorMessage() }}</mat-error>
-  </mat-form-field>
-  <mat-form-field appearance="fill">
-    <mat-label>Description</mat-label>
-    <textarea
-      matInput
-      placeholder="Description"
-      [rows]="5"
-      [cols]="50"
-      required
-    ></textarea>
-    <mat-error *ngIf="description.invalid">{{ getErrorMessage() }}</mat-error>
-  </mat-form-field>
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <h2 mat-dialog-title>Add new Task</h2>
+  <mat-dialog-content>
+    <mat-form-field appearance="fill">
+      <mat-label>Title</mat-label>
+      <input
+        matInput
+        type="text"
+        [formControl]="title"
+        placeholder="Enter your title"
+      />
+      <mat-error *ngIf="title.errors?.required"
+        >You must enter a value</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Description</mat-label>
+      <textarea
+        matInput
+        type="text"
+        [formControl]="description"
+        placeholder="Description"
+        [rows]="5"
+        [cols]="50"
+        minlength="5"
+        maxlength="200"
+      ></textarea>
+      <mat-error
+        *ngIf="
+          (description.errors?.minlength || description.errors?.maxlength) &&
+          description.touched
+        "
+        >Min length of this field - 5, Max length - 200. Now -
+        {{ description.value.length }}
+      </mat-error>
+      <mat-error *ngIf="description.errors?.required && description.touched"
+        >You must enter a value
+      </mat-error>
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Deadline date</mat-label>
-    <input
-      matInput
-      [matDatepicker]="picker"
-      min="{{ date }}"
-      placeholder="Choose date"
-      required
-    />
-    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-    <mat-error *ngIf="date.invalid">{{ getErrorMessage() }}</mat-error>
-  </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Deadline date</mat-label>
+      <input
+        matInput
+        [formControl]="date"
+        [matDatepicker]="picker"
+        min="{{ date }}"
+        placeholder="Choose date"
+      />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="date.errors?.required"
+        >You must enter a value</mat-error
+      >
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Deadline time</mat-label>
-    <input matInput type="time" placeholder="Choose time"/>
-  </mat-form-field>
-</mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Create</button>
-</mat-dialog-actions>
+    <mat-form-field appearance="outline">
+      <mat-label>Deadline time</mat-label>
+      <input
+        matInput
+        type="time"
+        [formControl]="time"
+        placeholder="Choose time"
+      />
+      <mat-error *ngIf="time.errors?.required"
+        >You must enter a value</mat-error
+      >
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button
+      mat-button
+      type="submit"
+      [disabled]="!form.valid"
+      [mat-dialog-close]="form"
+      cdkFocusInitial
+    >
+      Create
+    </button>
+  </mat-dialog-actions>
+</form>

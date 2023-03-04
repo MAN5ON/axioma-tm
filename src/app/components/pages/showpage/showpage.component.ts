@@ -8,8 +8,10 @@ import { Component } from '@angular/core';
 export class ShowpageComponent {}
 
 @Component({
-  selector: 'open-elem',
-  templateUrl: './open-elem/open-elem.component.html',
-  styleUrls: ['./open-elem/open-elem.component.css'],
+  selector: 'app-actions',
+  templateUrl: './actions/actions.component.html',
+  styleUrls: ['./actions/actions.component.css']
 })
-export class OpenElemComponent {}
+export class ActionsComponent {
+
+}

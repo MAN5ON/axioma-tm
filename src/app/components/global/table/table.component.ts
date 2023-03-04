@@ -1,9 +1,11 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Inject } from '@angular/core';
 import { MatSort, Sort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-
-import { defaultItems as data } from '../../data/tasks';
+import { TaskService } from '../../../services/task.service';
+import { ITask } from '../../../../models/task';
 
 @Component({
   selector: 'app-table',
@@ -11,14 +13,29 @@ import { defaultItems as data } from '../../data/tasks';
   styleUrls: ['./table.component.css'],
 })
 export class TableComponent implements AfterViewInit {
-  displayedColumns: string[] = ['title', 'created', 'deadline'];
-  dataSource = new MatTableDataSource(data);
+  constructor(
+    private _liveAnnouncer: LiveAnnouncer,
+    public taskService: TaskService,
+    public dialog: MatDialog
+  ) {}
 
-  constructor(private _liveAnnouncer: LiveAnnouncer) {}
+  displayedColumns: string[] = ['title', 'created', 'deadline', 'actions'];
+  dataSource = this.taskService.dataSource;
+
+  ngOnInit(): void {
+    this.dataSource.data;
+  }
+
+  openDialog(row: ITask) {
+    this.dialog.open(DetailDialog, {
+      data: row,
+    });
+  }
 
   @ViewChild(MatSort) sort: MatSort;
 
   ngAfterViewInit() {
+    this.dataSource.data = this.taskService.getAll();
     this.dataSource.sort = this.sort;
   }
 
@@ -29,4 +46,13 @@ export class TableComponent implements AfterViewInit {
       this._liveAnnouncer.announce('Sorting cleared');
     }
   }
+}
+
+@Component({
+  selector: 'detail-dialog',
+  templateUrl: './details/detail-dialog.component.html',
+  styleUrls: ['./details/detail-dialog.component.css'],
+})
+export class DetailDialog {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: ITask) {}
 }

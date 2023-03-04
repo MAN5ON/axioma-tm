@@ -1,21 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { FormControl, Validators } from '@angular/forms';
-
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { TaskService } from '../../../services/task.service';
+import { ITask } from '../../../../models/task';
 @Component({
   selector: 'app-editor',
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.css'],
 })
 export class EditorComponent {
-  constructor(public dialog: MatDialog) {}
-
+  constructor(public dialog: MatDialog, private taskService: TaskService) {}
   openNewElem() {
-    const dialogRef = this.dialog.open(NewElemComponent);
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
-    });
+    this.dialog.open(NewElemComponent);
   }
 }
 
@@ -25,36 +21,56 @@ export class EditorComponent {
   styleUrls: ['./new-elem/new-elem.component.css'],
 })
 export class NewElemComponent {
-  ngOnInit() {
-    let currDate = new Date();
+  constructor(private taskService: TaskService) {}
+
+  form = new FormGroup({
+    title: new FormControl('', Validators.required),
+    description: new FormControl('', [
+      Validators.minLength(5),
+      Validators.maxLength(200),
+      Validators.required,
+    ]),
+    date: new FormControl('', Validators.required),
+    time: new FormControl('', Validators.required),
+  });
+
+  get title() {
+    return this.form.controls.title as FormControl;
   }
-  errorValidator = '';
-  title = new FormControl('', [Validators.required]);
-  description = new FormControl('', [
-    Validators.minLength(5),
-    Validators.maxLength(200),
-    Validators.required,
-  ]);
-  date = new FormControl('', Validators.required);
 
-
-  getErrorMessage() {
-    if (
-      this.title.hasError('required') ||
-      this.description.hasError('required') ||
-      this.date.hasError('required')
-    ) {
-      return (this.errorValidator = 'You must enter a value');
-    }
-
-    if (this.description.hasError('minLength')) {
-      return (this.errorValidator = 'Minimum of this field - 5 characters');
-    }
-
-    if (this.description.hasError('maxLength')) {
-      return (this.errorValidator = 'Maximum of this field - 200 characters');
-    }
-
-    return (this.errorValidator = '');
+  get description() {
+    return this.form.controls.description as FormControl;
   }
+
+  get date() {
+    return this.form.controls.date as FormControl;
+  }
+
+  get time() {
+    return this.form.controls.time as FormControl;
+  }
+
+  submit() {
+    let deadlineTime: Date = new Date(
+      new Date(this.date.value).setHours(
+        this.time.value.split(':')[0],
+        this.time.value.split(':')[1]
+      )
+    );
+    this.taskService.create({
+      title: this.title.value,
+      text: this.description.value,
+      created: new Date(),
+      deadline: deadlineTime,
+    });
+  }
+}
+
+@Component({
+  selector: 'app-actions',
+  templateUrl: './actions/actions.component.html',
+  styleUrls: ['./actions/actions.component.css']
+})
+export class ActionsComponent {
+
 }
