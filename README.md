@@ -1,7 +1,9 @@
 # Task Manager
-## ОБЩЕЕ:
+Приложение реализовано на [**`Angular`**](https://angular.io/). 
 
-Приложение реализовано на [**`Angular`**](https://angular.io/). Вёрстка всех элементов - [**`Angular Material`**](https://material.angular.io/). В приложении есть две основные страницы: 
+Вёрстка всех элементов - [**`Angular Material`**](https://material.angular.io/).
+
+В приложении есть две основные страницы: 
 - страница просмотра;
 - страница редактирования;
 
