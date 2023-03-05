@@ -7,11 +7,7 @@ import { defaultItems as defaultData } from '../components/data/tasks';
   providedIn: 'root',
 })
 export class TaskService {
-  dataSource = new MatTableDataSource<ITask>([]);
-
-  getAll():ITask[] {
-    return (this.dataSource.data = defaultData);
-  }
+  dataSource = new MatTableDataSource<ITask>(defaultData);
 
   create(task: ITask) {
     const newData = this.dataSource.data;

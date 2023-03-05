@@ -1,5 +1,5 @@
 .editor {
-  width: 60%;
+  width: 50%;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
@@ -12,9 +12,24 @@
   margin: 5px 15px;
 }
 
-.table {
+mat-selection-list {
   margin-top: 50px;
 }
+
+.title {
+  font-weight: bold;
+  text-align: left  ;
+}
+
+.list-control {
+  align-self: flex-end;
+}
+
+.list-control button{
+  margin: 5px;
+}
+
+
 
 @media screen and (max-width: 1024px) {
   .editor {

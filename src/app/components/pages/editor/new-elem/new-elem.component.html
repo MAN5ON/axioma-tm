@@ -44,7 +44,8 @@
         matInput
         [formControl]="date"
         [matDatepicker]="picker"
-        min="{{ date }}"
+
+        [min]="minDate"
         placeholder="Choose date"
       />
       <mat-datepicker-toggle

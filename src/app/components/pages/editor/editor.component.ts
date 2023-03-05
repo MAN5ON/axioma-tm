@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TaskService } from '../../../services/task.service';
 import { ITask } from '../../../../models/task';
+import { MatSelectionList } from '@angular/material/list';
 @Component({
   selector: 'app-editor',
   templateUrl: './editor.component.html',
@@ -10,8 +11,41 @@ import { ITask } from '../../../../models/task';
 })
 export class EditorComponent {
   constructor(public dialog: MatDialog, private taskService: TaskService) {}
+  srcData = this.taskService.dataSource.data;
+
+  @ViewChild('editor') seList: MatSelectionList;
+
   openNewElem() {
-    this.dialog.open(NewElemComponent);
+    const dialogRef = this.dialog.open(NewElemComponent);
+    dialogRef
+      .afterClosed()
+      .subscribe(() => (this.srcData = this.taskService.dataSource.data));
+  }
+
+  dublicateSelected() {
+    let selectedOptions: ITask[] = this.seList.selectedOptions.selected.map(
+      (s) => s.value
+    );
+
+    selectedOptions.map((e) =>
+      this.taskService.create({
+        id: Math.random(),
+        title: e.title,
+        text: e.text,
+        created: e.created,
+        deadline: e.deadline,
+      })
+    );
+  }
+
+  deleteSelected() {
+    let selectedOptions: ITask[] = this.seList.selectedOptions.selected.map(
+      (s) => s.value
+    );
+    let newArr = this.srcData.filter((el) => !selectedOptions.includes(el));
+
+    this.taskService.dataSource.data = newArr;
+    this.srcData = this.taskService.dataSource.data;
   }
 }
 
@@ -22,6 +56,8 @@ export class EditorComponent {
 })
 export class NewElemComponent {
   constructor(private taskService: TaskService) {}
+
+  minDate: Date = new Date()
 
   form = new FormGroup({
     title: new FormControl('', Validators.required),
@@ -50,6 +86,11 @@ export class NewElemComponent {
     return this.form.controls.time as FormControl;
   }
 
+  myDateFilter = (d: Date | null): boolean => {
+    const day = (d || new Date()).getDay();
+    return day !== 0 && day !== 6;
+  };
+
   submit() {
     let deadlineTime: Date = new Date(
       new Date(this.date.value).setHours(
@@ -57,20 +98,16 @@ export class NewElemComponent {
         this.time.value.split(':')[1]
       )
     );
+
+    if (deadlineTime < this.minDate) {
+      deadlineTime = new Date(this.minDate.setDate(this.minDate.getDate()+1));
+    }
     this.taskService.create({
+      id: Math.random(),
       title: this.title.value,
       text: this.description.value,
       created: new Date(),
       deadline: deadlineTime,
     });
   }
-}
-
-@Component({
-  selector: 'app-actions',
-  templateUrl: './actions/actions.component.html',
-  styleUrls: ['./actions/actions.component.css']
-})
-export class ActionsComponent {
-
 }

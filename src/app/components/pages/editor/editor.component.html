@@ -1,9 +1,26 @@
 <div class="editor">
-  <button class="new-task-btn"
-  mat-raised-button
-  color="primary"
-  (click)="openNewElem()">
+  <button
+    class="new-task-btn"
+    mat-raised-button
+    color="primary"
+    (click)="openNewElem()"
+  >
     New Task
   </button>
-  <app-table class="table"></app-table>
+
+  <mat-selection-list #editor>
+    <h2>Editor</h2>
+    <mat-list-option *ngFor="let elem of srcData" [value]="elem">
+      <div class="title"> {{ elem.title }}</div>
+    </mat-list-option>
+  </mat-selection-list>
+  <div class="list-control">
+
+    <button mat-flat-button color="warn" (click)="deleteSelected()">
+      Remove
+    </button>
+    <button mat-flat-button color="primary" (click)="dublicateSelected()">
+      Copy
+    </button>
+  </div>
 </div>
