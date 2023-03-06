@@ -1,8 +1,6 @@
 # Task Manager (Тестовое задание для Аксиоматики)
 *(Текст задачи после описания функционала)*
 
-Ссылка на хостинг - [**`*ТЫК*`**](https://axioma-task-manager.onrender.com/)
-
 Приложение реализовано на [**`Angular`**](https://angular.io/). 
 
 Вёрстка всех элементов - [**`Angular Material`**](https://material.angular.io/).
