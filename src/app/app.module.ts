@@ -5,10 +5,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavigationComponent } from './components/global/navigation/navigation.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
 import { EditorComponent, NewElemComponent } from './components/pages/editor/editor.component';
 import { ShowpageComponent, DetailDialog } from './components/pages/showpage/showpage.component';
-import { NavDialog } from './components/global/navigation/navigation.component';
+import { NavDialog } from './components/navigation/navigation.component';
 // material
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
