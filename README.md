@@ -1,4 +1,6 @@
-# Task Manager
+# Task Manager (Тестовое задание для Аксиоматики)
+*Текст задачи после описания реализованного приложения*
+
 Приложение реализовано на [**`Angular`**](https://angular.io/). 
 
 Вёрстка всех элементов - [**`Angular Material`**](https://material.angular.io/).
