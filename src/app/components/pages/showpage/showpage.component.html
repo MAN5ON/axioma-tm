@@ -1,8 +1,8 @@
 <div class="showpage">
-
   <mat-table
     mat-table
     class="mat-table"
+    on-mouseleave="hoveredIndex = null"
     [dataSource]="dataSource"
     matSort
     (matSortChange)="announceSortChange($event)"
@@ -64,9 +64,27 @@
       </mat-cell>
     </ng-container>
 
+    <ng-container matColumnDef="controls">
+      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+      <mat-cell *matCellDef="let item; let visible; let i = index">
+        <div *ngIf="visible == hoveredIndex" class="controls">
+          <button mat-mini-fab color="primary" (click)="moveUp(i)">
+            <mat-icon fontIcon="keyboard_arrow_up"></mat-icon>
+          </button>
+          <button mat-mini-fab color="primary" (click)="moveDown(i)">
+            <mat-icon fontIcon="keyboard_arrow_down"></mat-icon>
+          </button>
+        </div>
+      </mat-cell>
+    </ng-container>
+
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row
-      *matRowDef="let row; columns: displayedColumns"
+      *matRowDef="let row; let visible; columns: displayedColumns"
+      on-mouseover="hoveredIndex = visible"
     ></mat-row>
   </mat-table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons>
+  </mat-paginator>
 </div>

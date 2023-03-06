@@ -23,9 +23,16 @@ mat-table {
   font-weight: bold;
 }
 
+
 .mat-column-title {
   font-weight: bold;
 }
+
+
+.controls{
+  margin: 0 auto;
+}
+
 
 @media screen and (max-width: 1024px) {
   .showpage {

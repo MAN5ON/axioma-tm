@@ -1,12 +1,12 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { MatTable } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
 import { MatSort, Sort } from '@angular/material/sort';
 import { TaskService } from '../../../services/task.service';
 import { ITask } from '../../../../models/task';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-showpage',
@@ -19,21 +19,45 @@ export class ShowpageComponent implements AfterViewInit {
     public taskService: TaskService,
     public dialog: MatDialog
   ) {}
-  @ViewChild('table') table: MatTable<ITask>;
-  displayedColumns: string[] = ['title', 'created', 'deadline'];
+  displayedColumns: string[] = ['title', 'created', 'deadline', 'controls'];
   srcData = this.taskService.dataSource.data;
   dataSource = this.taskService.dataSource;
+  hoveredIndex = null;
 
-  openDialog(row: ITask) {
+  openDialog(item: ITask) {
     this.dialog.open(DetailDialog, {
-      data: row,
+      data: item,
     });
   }
 
+  moveUp(i: number) {
+    if (i != 0) {
+      this.taskService.dataSource.data.splice(
+        i - 1,
+        0,
+        this.srcData.splice(i, 1)[0]
+      );
+      this.dataSource._updateChangeSubscription();
+    }
+  }
+
+  moveDown(i: number) {
+    if (i != this.srcData.length - 1) {
+      this.taskService.dataSource.data.splice(
+        i + 1,
+        0,
+        this.srcData.splice(i, 1)[0]
+      );
+      this.dataSource._updateChangeSubscription();
+    }
+  }
+
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
   announceSortChange(sortState: Sort) {

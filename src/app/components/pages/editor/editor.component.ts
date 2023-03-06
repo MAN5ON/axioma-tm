@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TaskService } from '../../../services/task.service';
 import { ITask } from '../../../../models/task';
 import { MatSelectionList } from '@angular/material/list';
+import {MatPaginator} from '@angular/material/paginator';
 @Component({
   selector: 'app-editor',
   templateUrl: './editor.component.html',
@@ -12,8 +13,14 @@ import { MatSelectionList } from '@angular/material/list';
 export class EditorComponent {
   constructor(public dialog: MatDialog, private taskService: TaskService) {}
   srcData = this.taskService.dataSource.data;
+  dataSource = this.taskService.dataSource
 
   @ViewChild('editor') seList: MatSelectionList;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
 
   openNewElem() {
     const dialogRef = this.dialog.open(NewElemComponent);
