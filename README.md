@@ -9,7 +9,7 @@
 
 ## ОКНО ПРОСМОТРА:
 Список задач выводится в виде таблицы. При наведении на элемент открывается всплывающее окно с кнопками перемещения.
-К таблице привязан пагинатор для удобства отображения.
+К таблице привязан **Paginator** для удобства отображения.
 
 ## ОКНО РЕДАКТОРА:
 
@@ -34,28 +34,33 @@
 - ФИЛЬТРАЦИЯ ПО ПОЛЯМ *(при клике на заголовок)*
 
 ---
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.1.
+## ТЕКСТ ЗАДАЧИ:
 
-## Development server
+Разработать веб приложение c использованием Angular и router из двух страниц: редактор и просмотр элементов (каждая страница должна открываться по-собственному url). Элемент состоит из наименования, даты создания, даты выполнения, описания.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### На странице редактора, должно быть реализовано следующее:
+-Добавление элемента:
+  - Добавление необходимо делать с помощью popup состоящего из полей:
+  - Название
+  - Дата выполнения (Дата + Время)
+  - Описание
+  - При создании элемента автоматически должно заполняться поле – Дата создания (Дата + Время).
+- Копирование элемента;
+- Удаление элемента.
 
-## Code scaffolding
+### На странице просмотра:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Вывод списка созданных элементов с датой их создания;
+- В заголовке списка должны быть названия колонок: наименование, дата и время создания, дата и время выполнения;
+- Выпадающее меню у каждого элемента, предоставляющее возможность переместить элемент выше или ниже по списку;
+- При нажатии на элемент открывается popup по аналогии с пунктом 1.a блока выше только на просмотр полей.
+- При верстке страниц необходимо использовать одну из следующих библиотек:
+  - Taiga UI
+  - Ant Design
+  - Material
+  - Nebular
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Бонусом будет:
+- При достижении даты выполнения будет появляться toaster-уведомление с информацией об элементе;
+- Валидация и отображение ошибок на полях формы создания;
+- В разделе просмотра реализовать фильтрацию по полям: Наименование, Дата выполнения с, Дата выполнения по.

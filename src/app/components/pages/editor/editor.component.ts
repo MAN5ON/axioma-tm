@@ -62,9 +62,7 @@ export class EditorComponent {
   styleUrls: ['./new-elem/new-elem.component.css'],
 })
 export class NewElemComponent {
-  constructor(private taskService: TaskService) {}
-
-  minDate: Date = new Date()
+  constructor(protected taskService: TaskService) {}
 
   form = new FormGroup({
     title: new FormControl('', Validators.required),
@@ -106,8 +104,8 @@ export class NewElemComponent {
       )
     );
 
-    if (deadlineTime < this.minDate) {
-      deadlineTime = new Date(this.minDate.setDate(this.minDate.getDate()+1));
+    if (deadlineTime < this.taskService.currentData) {
+      deadlineTime = new Date(this.taskService.currentData.setDate(this.taskService.currentData.getDate()+1));
     }
     this.taskService.create({
       id: Math.random(),

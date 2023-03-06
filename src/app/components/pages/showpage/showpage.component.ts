@@ -1,28 +1,51 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
 import { MatSort, Sort } from '@angular/material/sort';
 import { TaskService } from '../../../services/task.service';
 import { ITask } from '../../../../models/task';
-import {MatPaginator} from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-showpage',
   templateUrl: './showpage.component.html',
   styleUrls: ['./showpage.component.css'],
 })
-export class ShowpageComponent implements AfterViewInit {
+export class ShowpageComponent implements AfterViewInit, OnInit {
   constructor(
     private _liveAnnouncer: LiveAnnouncer,
-    public taskService: TaskService,
-    public dialog: MatDialog
+    private _snackBar: MatSnackBar,
+    private taskService: TaskService,
+    private dialog: MatDialog
   ) {}
-  displayedColumns: string[] = ['title', 'created', 'deadline', 'controls'];
-  srcData = this.taskService.dataSource.data;
-  dataSource = this.taskService.dataSource;
-  hoveredIndex = null;
+  protected displayedColumns: string[] = [
+    'title',
+    'created',
+    'deadline',
+    'controls',
+  ];
+  private srcData = this.taskService.dataSource.data;
+  protected dataSource = this.taskService.dataSource;
+  protected hoveredIndex = null;
+
+  private currentDates = this.srcData.filter(
+    (el) =>
+      el.deadline.getUTCDate() == this.taskService.currentData.getUTCDate()
+  );
+  private processingMessage: boolean;
+
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   openDialog(item: ITask) {
     this.dialog.open(DetailDialog, {
@@ -52,8 +75,35 @@ export class ShowpageComponent implements AfterViewInit {
     }
   }
 
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  protected displaySnackbar(): void {
+    const nextMessage = this.getNextMessage();
+
+    if (!nextMessage) {
+      this.processingMessage = false; // No message in the queue, set flag false
+      return;
+    }
+
+    this.processingMessage = true; // A message was dequeued and is being processed
+
+    this._snackBar
+      .open(
+        `Today is "${nextMessage.title}" deadline! Check if everything is ready?`,
+        'Got it!',
+        { duration: 3000 }
+      )
+      .afterDismissed()
+      .subscribe(() => {
+        this.displaySnackbar();
+      });
+  }
+
+  protected getNextMessage(): ITask | undefined {
+    return this.currentDates.length ? this.currentDates.shift() : undefined;
+  }
+
+  ngOnInit() {
+    this.displaySnackbar();
+  }
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;

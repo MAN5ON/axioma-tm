@@ -45,7 +45,7 @@
         [formControl]="date"
         [matDatepicker]="picker"
 
-        [min]="minDate"
+        [min]="this.taskService.currentData"
         placeholder="Choose date"
       />
       <mat-datepicker-toggle

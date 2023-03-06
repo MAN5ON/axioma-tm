@@ -16,6 +16,11 @@ mat-selection-list {
   margin-top: 50px;
 }
 
+mat-list-option:nth-child(n){
+  height: 35px;
+}
+
+
 .title {
   font-weight: bold;
   text-align: left  ;

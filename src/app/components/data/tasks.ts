@@ -9,6 +9,13 @@ export const defaultItems: ITask[] = [
     deadline: new Date('03/6/2023 23:59'),
   },
   {
+    id: 1.5,
+    title: "Don't forget to create snackbar",
+    text: "It's ready?",
+    created: new Date('03/03/2023 00:47'),
+    deadline: new Date('03/6/2023 23:59'),
+  },
+  {
     id: 2,
     title: 'My Birthday!',
     text: 'Hey, can you buy me a cake pls?',
@@ -20,7 +27,14 @@ export const defaultItems: ITask[] = [
     title: 'Do a test task',
     text: "Don't forget to complete the test task!",
     created: new Date('03/03/2023 00:47'),
-    deadline: new Date('03/7/2023 11:00'),
+    deadline: new Date('03/07/2023 11:00'),
+  },
+  {
+    id: 3.5,
+    title: 'Buy some chips',
+    text: "I love it!",
+    created: new Date('03/03/2023 00:47'),
+    deadline: new Date('03/07/2023 19:00'),
   },
   {
     id: 4,
@@ -28,6 +42,20 @@ export const defaultItems: ITask[] = [
     text: "Buy a gift for your girlfriend for international women's day!",
     created: new Date('03/03/2023 00:47'),
     deadline: new Date('03/08/2023 12:00'),
+  },
+  {
+    id: 4.5,
+    title: 'Water the flowers',
+    text: "Вon't forget to water the flowers",
+    created: new Date('03/03/2023 00:47'),
+    deadline: new Date('03/08/2023 12:00'),
+  },
+  {
+    id: 2.5,
+    title: 'RAWWWWWWWWWWWWRRRRRRRRR',
+    text: 'Sound of my cat...',
+    created: new Date('03/03/2023 00:47'),
+    deadline: new Date('03/09/2023 23:15'),
   },
   {
     id: 5,

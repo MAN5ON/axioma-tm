@@ -8,7 +8,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavigationComponent } from './components/global/navigation/navigation.component';
 import { EditorComponent, NewElemComponent } from './components/pages/editor/editor.component';
 import { ShowpageComponent, DetailDialog } from './components/pages/showpage/showpage.component';
-import { ToasterComponent } from './components/global/toaster/toaster.component';
 import { NavDialog } from './components/global/navigation/navigation.component';
 // material
 import { MatDialogModule } from '@angular/material/dialog';
@@ -23,6 +22,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -31,7 +31,6 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     ShowpageComponent,
     EditorComponent,
     NavigationComponent,
-    ToasterComponent,
     NavDialog,
     DetailDialog,
     NewElemComponent,
@@ -53,7 +52,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent],
