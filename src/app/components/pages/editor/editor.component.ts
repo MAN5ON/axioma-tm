@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TaskService } from '../../../services/task.service';
-import { ITask } from '../../../../models/task';
+import { ITask } from '../../../models/task';
 import { MatSelectionList } from '@angular/material/list';
 import {MatPaginator} from '@angular/material/paginator';
 @Component({

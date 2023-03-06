@@ -5,7 +5,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
 import { MatSort, Sort } from '@angular/material/sort';
 import { TaskService } from '../../../services/task.service';
-import { ITask } from '../../../../models/task';
+import { ITask } from '../../../models/task';
 import { MatPaginator } from '@angular/material/paginator';
 import {
   MatSnackBar,
